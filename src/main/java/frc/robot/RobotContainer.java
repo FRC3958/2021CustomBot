@@ -55,7 +55,7 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    m_Compressor.stop(); 
+    m_Compressor.start(); 
     SmartDashboard.putNumber("Elevated", 0); 
     SmartDashboard.putString("Limelight IP", "http://10.39.58.11:5801/");
     // Configure the button bindings
@@ -81,21 +81,21 @@ public class RobotContainer {
     new JoystickButton(driverController, Constants.YButtonController)       //this will eventually need to take in the proper speed from limelight.getTargetRPM
       .whenHeld(new ShootingFull(m_Shooter, Trigger, 0.5));
 
-    new JoystickButton(driverController, Constants.BButtonController)
-      .whenPressed(() -> m_Compressor.start())
-      .whenReleased(() -> m_Compressor.stop());
+//    new JoystickButton(driverController, Constants.BButtonController)   //compressor in theory turns itself off so this isn't needed 
+//      .whenPressed(() -> m_Compressor.start())
+//      .whenReleased(() -> m_Compressor.stop());
 
 //    new JoystickButton(driverController, Constants.AButtonController)   //just for testing needs to be changed 
 //      .whenPressed(() -> m_Shooter.SetToTarget(0.7))
 //      .whenReleased(() -> m_Shooter.SetToTarget(0))
 //      ;
 
-    new JoystickButton(driverController, Constants.NextButtonController)   //just for testing needs to be changed 
+    new JoystickButton(driverController, Constants.NextButtonController)  //raises shooter, lowering the angle 
       .whenPressed(() -> m_solenoid.airIn())
       .whenReleased(() -> m_solenoid.airOff())
       ;
 
-    new JoystickButton(driverController, Constants.BackButtonController)   //just for testing needs to be changed 
+    new JoystickButton(driverController, Constants.BackButtonController)  
       .whenPressed(() -> m_solenoid.airOut())
       .whenReleased(() -> m_solenoid.airOff())
       ;
