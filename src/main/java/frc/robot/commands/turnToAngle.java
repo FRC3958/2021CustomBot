@@ -8,24 +8,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.SingleMotorSpin;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.limelight;
 
-public class ShootingFull extends CommandBase {
+public class turnToAngle extends CommandBase {
   /**
-   * Creates a new ShootingFull.
+   * Creates a new turnToAngle.
    */
-  SingleMotorSpin m_indexer; 
-  Shooter m_shooter; 
-  double shootingSpeed; 
 
-  public ShootingFull(Shooter st, SingleMotorSpin smp2, double speed) {
+  limelight m_limelight;
+  DriveTrain m_driveTrain;
+
+  public turnToAngle(limelight lm, DriveTrain dt) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_indexer = smp2;
-    m_shooter = st;
-    shootingSpeed = speed;  
-
-    addRequirements(m_indexer, m_shooter);
+    m_limelight=lm;
+    m_driveTrain=dt;
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -36,21 +34,22 @@ public class ShootingFull extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.SetToTarget(shootingSpeed);            
-    
-    m_indexer.SpinningCommand(.6);
+    if (m_limelight.getAngleOffset() > 0) {
+      m_driveTrain.arcadeDrive(0, -0.4);
+    }
+    else {
+      m_driveTrain.arcadeDrive(0, 0.4);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.SetToTarget(0);
-    m_indexer.SpinningCommand(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Math.abs(m_limelight.getAngleOffset()) <= 0.5);
   }
 }

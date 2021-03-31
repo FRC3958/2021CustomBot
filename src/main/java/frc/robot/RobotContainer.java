@@ -13,7 +13,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DrivingCommand;
+import frc.robot.commands.MoveToDistance;
+import frc.robot.commands.ShootingFull;
 import frc.robot.commands.SingleSpinCommand;
+import frc.robot.commands.turnToAngle;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SingleMotorSpin;
@@ -29,6 +32,8 @@ import frc.robot.subsystems.solenoid;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public final XboxController driverController = new XboxController(Constants.XboxPort);
+  public final XboxController operatorController = new XboxController(Constants.XboxPort2);
+
 
   public DriveTrain drivingTrain = new DriveTrain();
   public DrivingCommand drivingCommand = new DrivingCommand(drivingTrain, driverController);
@@ -73,17 +78,17 @@ public class RobotContainer {
     new JoystickButton(driverController, Constants.BumperPortRight)
       .whenHeld(new SingleSpinCommand(Indexer, 0.4));
 
-    new JoystickButton(driverController, Constants.YButtonController)
-      .whenHeld(new SingleSpinCommand(Trigger, 0.6));
+    new JoystickButton(driverController, Constants.YButtonController)       //this will eventually need to take in the proper speed from limelight.getTargetRPM
+      .whenHeld(new ShootingFull(m_Shooter, Trigger, 0.5));
 
     new JoystickButton(driverController, Constants.BButtonController)
       .whenPressed(() -> m_Compressor.start())
       .whenReleased(() -> m_Compressor.stop());
 
-    new JoystickButton(driverController, Constants.AButtonController)   //just for testing needs to be changed 
-      .whenPressed(() -> m_Shooter.SetToTarget(0.7))
-      .whenReleased(() -> m_Shooter.SetToTarget(0))
-      ;
+//    new JoystickButton(driverController, Constants.AButtonController)   //just for testing needs to be changed 
+//      .whenPressed(() -> m_Shooter.SetToTarget(0.7))
+//      .whenReleased(() -> m_Shooter.SetToTarget(0))
+//      ;
 
     new JoystickButton(driverController, Constants.NextButtonController)   //just for testing needs to be changed 
       .whenPressed(() -> m_solenoid.airIn())
@@ -95,7 +100,26 @@ public class RobotContainer {
       .whenReleased(() -> m_solenoid.airOff())
       ;
 
-    new JoystickButton(driverController, buttonNumber);
+    new JoystickButton(operatorController, Constants.AButtonController)
+      .whenHeld(new MoveToDistance(60, drivingTrain, m_limelight))
+      ;
+
+    new JoystickButton(operatorController, Constants.BButtonController)
+      .whenHeld(new MoveToDistance(120, drivingTrain, m_limelight))
+      ;
+
+    new JoystickButton(operatorController, Constants.YButtonController)
+      .whenHeld(new MoveToDistance(180, drivingTrain, m_limelight))
+      ;
+
+    new JoystickButton(operatorController, Constants.XButtonController)
+      .whenHeld(new MoveToDistance(240, drivingTrain, m_limelight))
+      ;
+
+    new JoystickButton(operatorController, Constants.BumperPortRight)
+      .whenHeld(new turnToAngle(m_limelight, drivingTrain));
+
+
                               //TODO create Limelight to find distance, use that to find speed, must consider if pistons are raised/lowered
   }
 

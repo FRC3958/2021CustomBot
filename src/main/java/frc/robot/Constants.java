@@ -24,6 +24,7 @@ public final class Constants {
 	public static final int LeftJoystickYAxis = 1;
 	public static final int RightJoystickXAxis = 4;
 	public static final int XboxPort = 0;
+	public static final int XboxPort2 = 1; 
 	public static final int YButtonController = 4; 
 	public static final int IndexerTalon = 11; 
 	public static final int BumperPortLeft = 5; 
