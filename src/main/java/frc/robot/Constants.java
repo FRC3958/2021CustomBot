@@ -24,4 +24,19 @@ public final class Constants {
 	public static final int LeftJoystickYAxis = 1;
 	public static final int RightJoystickXAxis = 4;
 	public static final int XboxPort = 0;
+	public static final int YButtonController = 4; 
+	public static final int IndexerTalon = 11; 
+	public static final int BumperPortLeft = 5; 
+	public static final int BumperPortRight = 6; 
+	public static final int TriggerTalonPort = 12; 
+	public static final int CompressorPort = 15;
+	public static final int BButtonController = 2;
+	public static final int ShooterLeft = 20;
+	public static final int ShooterRight = 21;
+	public static final int AButtonController = 1;
+	public static final int XButtonController = 3;
+	public static final int BackButtonController = 7; 
+	public static final int NextButtonController = 8;
+	public static double heightDifferenceInches;
+	public static double angleDefault; 
 }

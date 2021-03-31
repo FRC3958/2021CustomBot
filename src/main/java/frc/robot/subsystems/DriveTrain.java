@@ -30,10 +30,10 @@ public class DriveTrain extends SubsystemBase {
 
   public DriveTrain() {
     // brake for best control
-    backLeft.setNeutralMode(NeutralMode.Brake);
-    frontLeft.setNeutralMode(NeutralMode.Brake);
-    backRight.setNeutralMode(NeutralMode.Brake);
-    frontRight.setNeutralMode(NeutralMode.Brake);
+    backLeft.setNeutralMode(NeutralMode.Coast);
+    frontLeft.setNeutralMode(NeutralMode.Coast);
+    backRight.setNeutralMode(NeutralMode.Coast);
+    frontRight.setNeutralMode(NeutralMode.Coast);
     
     // config motor direction    
     backLeft.setInverted(InvertType.None);
