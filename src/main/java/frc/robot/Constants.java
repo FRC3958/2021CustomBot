@@ -38,6 +38,6 @@ public final class Constants {
 	public static final int XButtonController = 3;
 	public static final int BackButtonController = 7; 
 	public static final int NextButtonController = 8;
-	public static double heightDifferenceInches;
+	public static double heightDifferenceInches;		//TODO find this
 	public static double angleDefault; 
 }

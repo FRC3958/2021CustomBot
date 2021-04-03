@@ -55,9 +55,11 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    m_Compressor.start(); 
+    m_Compressor.stop(); 
     SmartDashboard.putNumber("Elevated", 0); 
+    SmartDashboard.putNumber("ShooterSpeed", 0.5); 
     SmartDashboard.putString("Limelight IP", "http://10.39.58.11:5801/");
+    m_Compressor.start(); 
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -79,7 +81,7 @@ public class RobotContainer {
       .whenHeld(new SingleSpinCommand(Indexer, 0.4));
 
     new JoystickButton(driverController, Constants.YButtonController)       //this will eventually need to take in the proper speed from limelight.getTargetRPM
-      .whenHeld(new ShootingFull(m_Shooter, Trigger, 0.5));
+      .whenHeld(new ShootingFull(m_Shooter, Trigger, SmartDashboard.getNumber("ShooterSpeed", 0.5)));
 
 //    new JoystickButton(driverController, Constants.BButtonController)   //compressor in theory turns itself off so this isn't needed 
 //      .whenPressed(() -> m_Compressor.start())

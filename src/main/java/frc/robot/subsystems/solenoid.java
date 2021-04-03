@@ -16,7 +16,7 @@ public class solenoid extends SubsystemBase {
   /**
    * Creates a new solenoid.
    */
-  DoubleSolenoid m_doubleSolenoid = new DoubleSolenoid(15, 0, 1); 
+  DoubleSolenoid m_doubleSolenoid = new DoubleSolenoid(15, 0, 1);     //pcm is 15 on can loop 
   
 
   public solenoid() {
